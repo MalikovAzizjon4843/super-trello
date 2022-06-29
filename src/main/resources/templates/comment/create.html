@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments.html :: header('Organization Create Page')">
+</head>
+<body>
+<header>
+    <section th:include="fragments.html :: navbar"></section>
+    organization
+</header>
+<main>
+    <div class="container">
+        <div class="row">
+            <div class="col-10 mx-auto">
+                <form th:action="@{/comment/create/}" th:method="post" enctype="multipart/form-data">
+
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <input type="text" class="form-control" id="message" name="message"/>
+                    </div>
+                    <button type="submit" class="btn btn-primary">➕ Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+<footer>
+    <section th:include="fragments.html :: js"></section>
+</footer>
+</body>
+</html>

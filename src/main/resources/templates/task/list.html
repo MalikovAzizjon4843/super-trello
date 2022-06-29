@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments.html :: header('Task')">
+</head>
+<body>
+<header>
+    <section th:include="fragments.html :: navbar"></section>
+</header>
+<main>
+    <div class="container">
+        <table class="table">
+            <thead class="thead-light">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Tz Path</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="task,iter :  ${tasks}">
+                <th th:text="${iter.count}"></th>
+                <th th:text="${task.tittle}"></th>
+                <th th:text="${task.description}"></th>
+                <th th:text="${task.level}"></th>
+                <th class="icons">
+                    <a th:href="@{/task/detail/{id}/(id = ${task.id})}">👁</a>
+                    <a href="#">🔐</a>
+                    <a href="#">🔓</a>
+                    <a th:href="@{/task/delete/{id}/(id=${task.id})}">🗑</a>
+                    <a th:href="@{/task/update/{id}/(id=${task.id})}">🔄</a>
+
+                </th>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+<footer>
+    <section th:include="fragments.html :: js"></section>
+</footer>
+</body>
+</html>

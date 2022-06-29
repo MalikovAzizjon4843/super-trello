@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments.html :: head(title='Admin Panel', path='/css/index.css')">
+<body>
+<header>
+    <main>
+        <div class="menu-bar">
+            <i class="fas fa-bars"></i>
+        </div>
+        <div class="logo">
+            <img src="/images/logo.png" alt="">
+        </div>
+
+        <div class="link">
+            <a th:href="@{/project/projects/}">Project</a>
+            <a th:href="@{/user/member/}">Member control</a>
+            <a th:href="@{/user/admin/}">Admin control</a>
+            <a th:href="@{/user/manager/}">Manager control</a>
+        </div>
+    </main>
+
+    <aside>
+        <nav>
+            <div class="input">
+                <div>
+                    <i class="fas fa-search"></i>
+                </div>
+
+                <input type="text" placeholder="Search">
+            </div>
+
+            <div class="user-information">
+                <div class="icon">
+                    <a th:href="@{/auth/logout}" class="btn btn-outline-danger">logout</a>
+                </div>
+
+                <div class="user">
+                    <img src="/images/useer.png" alt="">
+                    <p>Mushkityorlar
+                        <i class="fas fa-angle-down"></i>
+                    </p>
+                </div>
+
+            </div>
+
+        </nav>
+
+        <div class="container">
+            <h3>Admin</h3>
+            <div class="content" style=" grid-template-columns: 300px 750px;!important;">
+                <div class="contents">
+                    <img src="/images/portfolio.jpg" width="100%"/>
+                </div>
+                <!--<div class="contents">
+                    <div class="content-text" style="margin-bottom: 20px">
+                        <p>Projects</p>
+                        <p>Export</p>
+                    </div>
+                    <div>
+                        <a
+                                style="text-decoration: none">
+                            <div class="box">
+                                <p>Name</p>
+                                <div class="box-text">
+                                    </span>
+                                    <span>
+                                        <img th:src="@{/images/sunrise.png}" alt="">
+                                        <span>Tz Path</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>-->
+                <div class="contents">
+                    <div class="content-text" style="margin-bottom: 20px">
+                        <p>Projects</p>
+                        <p>Export</p>
+                    </div>
+                    <div th:each="project : ${projects}">
+                        <a th:href="@{/project/detail/{id}/(id = ${project.id})}"
+                           style="text-decoration: none">
+                            <div class="box">
+                                <p th:text="${project.name}"></p>
+                                <div class="box-text">
+                                    </span>
+                                    <span>
+                                        <img th:src="@{/images/sunrise.png}" alt="">
+                                        <span th:text="${project.tzPath}"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- <div class="content pt-5" style=" grid-template-columns: 330px 330px;">
+                 <div class="content pt-5" style=" grid-template-columns: 330px 330px;!important;">
+                     <div class="contents"></div>
+                 </div>
+                 <div class="content pt-5" style=" grid-template-columns: 330px 330px;!important;">
+                     <div class="contents"></div>
+                     <div class="contents"></div>
+                 </div>
+             </div>-->
+        </div>
+
+    </aside>
+
+</header>
+
+<script>
+    const menu = document.querySelector(".menu-bar")
+    const main = document.querySelector("main")
+    menu.addEventListener("click", () => {
+        main.classList.toggle("open")
+    })
+</script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+</html>

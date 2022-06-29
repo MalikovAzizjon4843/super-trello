@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments.html :: head(title='Project update', path='/css/index.css')">
+<body>
+<header>
+    <main>
+        <div class="menu-bar">
+            <i class="fas fa-bars"></i>
+        </div>
+        <div class="logo">
+            <img src="/images/logo.png" alt="">
+        </div>
+
+        <div class="link">
+            <a th:href="@{/project/projects/}">Project</a>
+            <a th:href="@{/user/member/}">Member control</a>
+            <a th:href="@{/user/admin/}">Admin control</a>
+            <a th:href="@{/user/manager/}">Manager control</a>
+        </div>
+    </main>
+
+    <aside>
+        <nav>
+            <div class="input">
+                <div>
+                    <i class="fas fa-search"></i>
+                </div>
+
+                <input type="text" placeholder="Search">
+            </div>
+
+            <div class="user-information">
+                <div class="icon">
+                    <a th:href="@{/auth/logout}" class="btn btn-outline-danger">logout</a>
+                </div>
+
+                <div class="user">
+                    <img src="/images/useer.png" alt="">
+                    <p>Mushkityorlar
+                        <i class="fas fa-angle-down"></i>
+                    </p>
+                </div>
+
+            </div>
+
+        </nav>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-10 mx-auto">
+                    <form th:action="@{/project/update}" th:method="post" th:object="${project}">
+                        <div class="form-group">
+                            <input class="form-control" type="hidden" id="id" name="id" th:value="${project.getId()}"/>
+                            <span style="color: red" th:errors="*{id}"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" class="form-control" id="name" name="name"
+                                   th:value="${project.getName}"/>
+                        </div>
+
+                        <div class=" form-group">
+                            <label for="tzPath">Project description</label>
+                            <input type="text" class="form-control" id="tzPath" name="tzPath"
+                                   th:value="${project.tzPath}"/>
+                        </div>
+
+                        <div class="form-group">
+                            <input class="form-control btn btn-outline-dark mt-3" type="submit" value="save"
+                                   th:action="@{/project/update/{id}(id=${project.id})}"/>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+</header>
+
+<script>
+    const menu = document.querySelector(".menu-bar")
+    const main = document.querySelector("main")
+    menu.addEventListener("click", () => {
+        main.classList.toggle("open")
+    })
+</script>
+</body>
+</html>
+
+

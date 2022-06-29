@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments.html :: head(title='Organization', path='/css/index.css')">
+<body>
+<header>
+    <main>
+        <div class="menu-bar">
+            <i class="fas fa-bars"></i>
+        </div>
+        <div class="logo" style=" margin-right: 20px;margin-left: -60px;margin-top: -100px;">
+            <img src="/images/logo.png" alt="" style="width: 100%">
+        </div>
+
+        <div class="link">
+            <a th:href="@{/panel/superAdmin/}"> Home </a>
+            <a th:href="@{/}">Super Admin control</a>
+        </div>
+    </main>
+
+    <aside>
+        <nav>
+            <div class="input">
+                <div>
+                    <i class="fas fa-search"></i>
+                </div>
+
+                <input type="text" placeholder="Search">
+            </div>
+
+            <div class="user-information">
+                <div class="icon">
+                    <a th:href="@{/auth/logout}" class="btn btn-outline-danger">logout</a>
+                </div>
+
+                <div class="user">
+                    <img src="/images/useer.png" alt="">
+                    <p>Mushkityorlar
+                        <i class="fas fa-angle-down"></i>
+                    </p>
+                </div>
+            </div>
+
+        </nav>
+    </aside>
+
+</header>
+
+<script>
+    const menu = document.querySelector(".menu-bar")
+    const main = document.querySelector("main")
+    menu.addEventListener("click", () => {
+        main.classList.toggle("open")
+    })
+</script>
+</body>
+</html>

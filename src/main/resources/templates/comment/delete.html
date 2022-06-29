@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments.html :: header('Project Delete Page')">
+</head>
+<body>
+<header>
+    <section th:include="fragments.html :: navbar"></section>
+</header>
+<main>
+
+    <h1>Delete comment Page</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-8 mx-auto">
+                <ul>
+                    <li th:text="${comment.message}"></li>
+                </ul>
+                <form method="post" th:action="@{/comment/delete/{id}(id=${comment.id})}">
+                    <button type="submit" class="btn btn-danger">Yes</button>
+                    <a th:href="@{/}" class="btn btn-warning">No</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+<footer>
+    <section th:include="fragments.html :: js"></section>
+</footer>
+</body>
+</html>

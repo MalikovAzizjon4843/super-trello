@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments.html :: head(title='Organization list', path='/css/index.css')"></head>
+<body>
+
+<header>
+    <main>
+        <div class="menu-bar">
+            <i class="fas fa-bars"></i>
+        </div>
+        <div class="logo" style=" margin-right: 20px;
+        margin-left: -60px;
+        margin-top: -100px;">
+            <img src="/images/logo.png" alt="" style="width: 100%">
+        </div>
+
+        <div class="link">
+            <a th:href="@{/panel/superAdmin/}">Home</a>
+            <a th:href="@{/superAdmin/lists/}">Super Admin control</a>
+        </div>
+    </main>
+
+    <aside>
+        <nav>
+            <div class="input">
+                <div>
+                    <i class="fas fa-search"></i>
+                </div>
+
+                <input type="text" placeholder="Search">
+            </div>
+
+            <div class="user-information">
+                <div class="icon">
+                    <a th:href="@{/auth/logout}" class="btn btn-outline-danger">logout</a>
+                </div>
+
+                <div class="user">
+                    <img src="/images/useer.png" alt="">
+                    <p>Mushkityorlar
+                        <i class="fas fa-angle-down"></i>
+                    </p>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <button type="button" class="btn btn-success mt-3" data-toggle="modal"
+                    data-target="#createOrgModal">+ Create Organization
+            </button>
+            <div class="modal fade" id="createOrgModal" tabindex="-1" role="dialog"
+                 aria-labelledby="createOrgModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="createOrgModalLabel">Create Organization</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true" class="text-danger">&times;</span>
+                            </button>
+                        </div>
+                        <form th:action="@{/organization/create/}" th:method="post"
+                              enctype="multipart/form-data">
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="name">Name</label>
+                                    <input type="text" class="form-control" id="name" name="name"/>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="logo">Logo</label>
+                                    <input type="file" class="form-control" id="logo" name="logo"/>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="code">Code</label>
+                                    <input type="text" class="form-control" id="code" name="code"/>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="email">Email address</label>
+                                    <input type="email" class="form-control" name="email" id="email"/>
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-success">Save</button>
+
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="content" style="grid-template-columns: 1000px">
+                <div class="contents">
+                    <div class="content-text" style="margin-bottom: 20px">
+                        <p>Organizations</p>
+                        <p>Export</p>
+                    </div>
+                    <div th:each="organization : ${organizations}">
+                        <a th:href="@{/organization/detail/{id}/(id = ${organization.id})}"
+                           style="text-decoration: none">
+                            <div class="box">
+                                <p th:text="${organization.name}"></p>
+                                <div class="box-text">
+                                    </span>
+                                    <span>
+                                        <img th:src="@{/images/sunrise.png}" alt="">
+                                        <span th:text="${organization.email}"></span>
+                                    </span>
+                                    <span>
+                                       <img th:src="@{/images/users.png}" alt="">
+                                        <span th:text="${organization.code}"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </aside>
+</header>
+<script>
+    const menu = document.querySelector(".menu-bar")
+    const main = document.querySelector("main")
+    menu.addEventListener("click", () => {
+        main.classList.toggle("open")
+    })
+
+</script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+</html>

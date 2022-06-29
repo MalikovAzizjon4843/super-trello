@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments.html :: head(title='Organization deteils', path='/css/index.css')"></head>
+<main>
+    <div class="container" style="overflow: hidden">
+        <h2 th:text="${organization.name}" class="text-primary"></h2>
+        <div class="row">
+            <div class="col-4">
+                <div class="card border-primary mb-3" style="max-width: 18rem;">
+                    <div class="card-header">Organization logo</div>
+                    <div class="card-body text-primary">
+                        <img th:src="@{${organization.logo}}" alt="" class="card-img">
+                    </div>
+                </div>
+            </div>
+            <div class="col-8">
+                <ul class="list-group">
+                    <li class="list-group-item active" th:text="${organization.name}"></li>
+                    <li class="list-group-item" th:text="${organization.code}"></li>
+                    <li class="list-group-item" th:text="${organization.email}"></li>
+                </ul>
+                <a th:href="@{/organization/delete/{id}/(id=${organization.id})}"
+                   class="btn btn-outline-danger">Delete</a>
+                <a th:href="@{/organization/update/{id}/(id=${organization.id})}"
+                   class="btn btn-outline-primary">Update</a>
+                <a th:href="@{/admin/create/{id}/(id=${organization.id})}"
+                   class="btn btn-outline-success ml-5">CREATE ADMIN</a>
+                <a th:href="@{/organization/organizations/}" class="btn btn-warning my-4 p-2 text-white"><= Back</a>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>

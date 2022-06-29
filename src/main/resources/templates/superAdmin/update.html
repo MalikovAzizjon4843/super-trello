@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments.html :: head(title='Super Admin update', path='/css/index.css')">
+<body>
+<header>
+    <main>
+        <div class="menu-bar">
+            <i class="fas fa-bars"></i>
+        </div>
+        <div class="logo">
+            <img src="/images/logo.png" alt="">
+        </div>
+
+        <div class="link">
+            <a th:href="@{/panel/superAdmin/}"> Home </a>
+            <a th:href="@{/superAdmin/lists/}">Super Admin control</a>
+        </div>
+    </main>
+
+    <aside>
+        <nav>
+            <div class="input">
+                <div>
+                    <i class="fas fa-search"></i>
+                </div>
+
+                <input type="text" placeholder="Search">
+            </div>
+
+            <div class="user-information">
+                <div class="icon">
+                    <a th:href="@{/auth/logout}" class="btn btn-outline-danger">logout</a>
+                </div>
+
+                <div class="user">
+                    <img src="/images/useer.png" alt="">
+                    <p>Mushkityorlar
+                        <i class="fas fa-angle-down"></i>
+                    </p>
+                </div>
+
+            </div>
+
+        </nav>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-10 mx-auto">
+                    <form th:action="@{/superAdmin/update}" th:method="POST" th:object="${superAdmin}">
+                        <div class="form-group">
+                            <input class="form-control" type="hidden" id="id" name="id" th:value="${superAdmin.getId()}"/>
+                            <span style="color: red" th:errors="*{id}"></span>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="name">User Name</label>
+                                <input type="text" class="form-control" id="name" name="username" th:value="${superAdmin.getUsername()}"/>
+                            </div>
+                           <!-- <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" class="form-control" id="password" name="password" th:value="${superAdmin.getId()}"/>
+                            </div>-->
+                           <!-- <div class="form-group">
+                                <label for="logo">profile image</label>
+                                <input type="file" class="form-control" id="logo" name="profileImage" th:value="${superAdmin.getProfileImage()}"/>
+                            </div>-->
+                            <div class="form-group">
+                                <label for="phone">Phone</label>
+                                <input type="text" class="form-control" id="phone" name="phone" th:value="${superAdmin.getPhone()}"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email address</label>
+                                <input type="email" class="form-control" name="email" id="email" th:value="${superAdmin.getEmail()}"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="language">Language</label>
+                                <select id="language" name="language" class="form-control">
+                                    <option>UZ</option>
+                                    <option>RU</option>
+                                    <option>EN</option>
+                                </select>
+                            </div>
+                           <!-- <div class="form-group">
+                                <label for="role">ROLE</label>
+                                <select id="role" name="role" class="form-control">
+                                    &lt;!&ndash;                                <option name="role_name" value="SUPER_ADMIN">SUPER_ADMIN</option>&ndash;&gt;
+                                    <option name="role_name" value="SUPER_ADMIN">SUPER_ADMIN</option>
+                                </select>
+                            </div>-->
+                        </div>
+
+                        <div class="form-group">
+                            <input class="form-control btn btn-outline-dark mt-3" type="submit" value="save"
+                                   th:action="@{/superAdmin/update/{id}(id=${superAdmin.id})}"/>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+</header>
+
+<script>
+    const menu = document.querySelector(".menu-bar")
+    const main = document.querySelector("main")
+    menu.addEventListener("click", () => {
+        main.classList.toggle("open")
+    })
+</script>
+</body>
+</html>
+
+

@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments.html :: head(title='Project list', path='/css/index2.css')"></head>
+<body>
+<header>
+    <main>
+        <div class="menu-bar">
+            <i class="fas fa-bars"></i>
+        </div>
+        <div class="logo" style=" margin-right: 20px;
+        margin-left: -60px;
+        margin-top: -100px;">
+            <img src="/images/logo.png" alt="" style="width: 100%">
+        </div>
+
+        <div class="link">
+            <a th:href="@{/panel/admin/}">Project</a>
+            <!--<button type="button" class="btn btn-success my-3" data-toggle="modal"
+                    data-target="#craeteMemberModal">+ Create Members
+            </button>
+            <div class="modal fade" id="craeteMemberModal" tabindex="-1" role="dialog"
+                 aria-labelledby="craeteMemberModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="craeteMemberModalLabel">Create Admin</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true" class="text-danger">&times;</span>
+                            </button>
+                        </div>
+                        <form th:action="@{/user/create/}" th:method="post"
+                              enctype="multipart/form-data">
+
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="username">User Name</label>
+                                    <input type="text" class="form-control" id="username" name="username"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">Password</label>
+                                    <input type="password" class="form-control" id="password" name="password"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="logo">profile image</label>
+                                    <input type="file" class="form-control" id="logo" name="profileImage"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">Phone</label>
+                                    <input type="text" class="form-control" id="phone" name="phone"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email address</label>
+                                    <input type="email" class="form-control" name="email" id="email"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="language">Language</label>
+                                    <select id="language" name="language" class="form-control">
+                                        <option>UZ</option>
+                                        <option>RU</option>
+                                        <option>EN</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="role">ROLE</label>
+                                    <select id="role" name="role" class="form-control">
+                                        &lt;!&ndash;                                <option name="role_name" value="SUPER_ADMIN">SUPER_ADMIN</option>&ndash;&gt;
+                                        <option name="role_name" value="ADMIN">ADMIN</option>
+                                        <option name="role_name" value="MANAGER">MANAGER</option>
+                                        <option name="role_name" value="MEMBER">MEMBER</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-success">Save</button>
+
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>-->
+            <a th:href="@{/user/member/}">Member control</a>
+            <a th:href="@{/user/admin/}">Admin control</a>
+            <a th:href="@{/user/manager/}">Manager control</a>
+        </div>
+    </main>
+
+    <aside>
+        <nav>
+            <div class="input">
+                <div>
+                    <i class="fas fa-search"></i>
+                </div>
+
+                <input type="text" placeholder="Search">
+            </div>
+
+            <div class="user-information">
+                <div class="icon">
+                    <a th:href="@{/auth/logout}" class="btn btn-outline-danger">logout</a>
+                </div>
+
+                <div class="user">
+                    <img src="/images/useer.png" alt="">
+                    <p>Mushkityorlar
+                        <i class="fas fa-angle-down"></i>
+                    </p>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <h3 th:text="${project.name}" class="text-primary">Project</h3>
+            <div class="contents">
+                <div class="content">
+                    <div class="box">
+                        <a th:href="@{/project/delete/{id}/(id=${project.id})}"
+                           class="btn btn-outline-danger">Delete</a>
+                    </div>
+                    <div class="content-box">
+                        <a th:href="@{/project/update/{id}/(id=${project.id})}"
+                           class="btn btn-outline-primary">Update</a>
+                    </div>
+                    <div class="boxs">
+                        <button type="button" class="btn btn-outline-info" data-toggle="modal"
+                                data-target="#createMemberModal">+ Create Members
+                        </button>
+                        <div class="modal fade" id="createMemberModal" tabindex="-1" role="dialog"
+                             aria-labelledby="createMemberModalLabel"
+                             aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="createMemberModalLabel">Create member for
+                                            project</h5>
+                                        <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close">
+                                            <span aria-hidden="true" class="text-danger">&times;</span>
+                                        </button>
+                                    </div>
+                                    <form th:action="@{/user/create/}" th:method="post"
+                                          enctype="multipart/form-data">
+
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <label for="username">User Name</label>
+                                                <input type="text" class="form-control" id="username" name="username"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="password">Password</label>
+                                                <input type="password" class="form-control" id="password"
+                                                       name="password"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="logo">profile image</label>
+                                                <input type="file" class="form-control" id="logo" name="profileImage"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="phone">Phone</label>
+                                                <input type="text" class="form-control" id="phone" name="phone"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="email">Email address</label>
+                                                <input type="email" class="form-control" name="email" id="email"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="language">Language</label>
+                                                <select id="language" name="language" class="form-control">
+                                                    <option>UZ</option>
+                                                    <option>RU</option>
+                                                    <option>EN</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="role">ROLE</label>
+                                                <select id="role" name="role" class="form-control">
+                                                    <!--                                <option name="role_name" value="SUPER_ADMIN">SUPER_ADMIN</option>-->
+                                                    <option name="role_name" value="ADMIN">ADMIN</option>
+                                                    <option name="role_name" value="MANAGER">MANAGER</option>
+                                                    <option name="role_name" value="MEMBER">MEMBER</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-success">Save</button>
+
+                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <!--<a th:href="@{/project/create/{id}/(id=${project.id})}"
+                           class="btn btn-outline-success ml-5">Add Member</a>-->
+                    </div>
+                </div>
+
+                <div class="todoContainer">
+                    <div class="todoContent-box">
+                        <div class="todo-img">
+                            <p>Process</p>
+                            <p>
+                                <img src="/images/plus-circle.png" type="button"
+                                     data-toggle="modal"
+                                     data-target="#createProjectModal">
+                            </p>
+                            <div class="modal fade" id="createProjectModal" tabindex="-1" role="dialog"
+                                 aria-labelledby="createProjectModalLabel"
+                                 aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="createProjectModalLabel">Create Task</h5>
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                <span aria-hidden="true" class="text-danger">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form th:action="@{/task/create/}" th:method="post"
+                                                  enctype="multipart/form-data">
+
+                                                <div class="form-group">
+                                                    <label for="tittle">Title</label>
+                                                    <input type="text" class="form-control" id="tittle" name="tittle"/>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="description">Description</label>
+                                                    <input type="text" class="form-control" name="description"
+                                                           id="description"/>
+                                                </div>
+                                                <!-- <div class="form-group">
+                                                     <label for="deadline">Deadline</label>
+                                                     <input type="datetime-local" class="form-control" name="deadline" id="deadline"/>
+                                                 </div>-->
+
+                                                <div class="form-group">
+                                                    <label for="level">Level</label>
+                                                    <select id="level" name="level" class="form-control">
+                                                        <option value="EASY" name="level">EASY</option>
+                                                        <option value="MEDIUM" name="level">MEDIUM</option>
+                                                        <option value="HARD" name="level">HARD</option>
+                                                    </select>
+                                                </div>
+                                                <button type="submit" class="btn btn-primary">➕ Save</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="todo-box" th:each="task,iter :  ${tasks}">
+                            <h4 th:value="${task.tittle}"></h4>
+                            <button class="medium" th:value="${task.level}"></button>
+                            <h3 th:value="${task.description}"></h3>
+                            <p th:text="${iter.count}"><span>Description:  </span>Azhar</p>
+                        </div>
+
+                    </div>
+                    <div class="todoContent-box">
+                        <div class="todo-img">
+                            <p>Doing</p>
+                        </div>
+                        <div class="todo-box">
+                            <h4>CRM system design
+                                <button class="low">Low</button>
+                            </h4>
+                            <p><span>Participant:  </span>Azhar</p>
+                            <p><span>Participant:  </span>Azhar</p>
+                        </div>
+
+                        <div class="todo-box">
+                            <h4>CRM system design
+                                <button class="low">Low</button>
+                            </h4>
+                            <p><span>Participant:  </span>Azhar</p>
+                            <p><span>Participant:  </span>Azhar</p>
+                        </div>
+                    </div>
+                    <div class="todoContent-box">
+                        <div class="todo-img">
+                            <p>Completed</p>
+                        </div>
+                    </div>
+                    <div class="todoContent-box">
+                        <div class="todo-img">
+                            <p>QA</p>
+                        </div>
+                        <div class="todo-box">
+                            <h4>CRM system design
+                                <button class="low">Low</button>
+                            </h4>
+                            <p><span>Participant:  </span>Azhar</p>
+                            <p><span>Participant:  </span>Azhar</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </aside>
+
+</header>
+
+<script>
+    const menu = document.querySelector(".menu-bar")
+    const main = document.querySelector("main")
+    menu.addEventListener("click", () => {
+        main.classList.toggle("open")
+    })
+</script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+</html>
+
+
+<!--
+
+
+</head>
+<body>
+<header>
+    <main>
+        <div class="menu-bar">
+            <i class="fas fa-bars"></i>
+        </div>
+        <div class="logo" style=" margin-right: 20px;
+        margin-left: -60px;
+        margin-top: -100px;">
+            <img src="/images/logo.png" alt="" style="width: 100%">
+        </div>
+
+        <div class="link">
+            <a th:href="@{/panel/admin/}">Project</a>
+            <button type="button" class="btn btn-success my-3" data-toggle="modal"
+                    data-target="#craeteMemberModal">+ Create Users
+            </button>
+            <div class="modal fade" id="createSuperAdminModal" tabindex="-1" role="dialog"
+                 aria-labelledby="createSuperAdminModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="createSuperAdminModalLabel">Create Super Admin</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true" class="text-danger">&times;</span>
+                            </button>
+                        </div>
+                        <form th:action="@{/user/create/}" th:method="post"
+                              enctype="multipart/form-data">
+
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="username">User Name</label>
+                                    <input type="text" class="form-control" id="username" name="username"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">Password</label>
+                                    <input type="password" class="form-control" id="password" name="password"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="logo">profile image</label>
+                                    <input type="file" class="form-control" id="logo" name="profileImage"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">Phone</label>
+                                    <input type="text" class="form-control" id="phone" name="phone"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email address</label>
+                                    <input type="email" class="form-control" name="email" id="email"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="language">Language</label>
+                                    <select id="language" name="language" class="form-control">
+                                        <option>UZ</option>
+                                        <option>RU</option>
+                                        <option>EN</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="role">ROLE</label>
+                                    <select id="role" name="role" class="form-control">
+                                        &lt;!&ndash;                                <option name="role_name" value="SUPER_ADMIN">SUPER_ADMIN</option>&ndash;&gt;
+                                        <option name="role_name" value="ADMIN">ADMIN</option>
+                                        <option name="role_name" value="MANAGER">MANAGER</option>
+                                        <option name="role_name" value="MEMBER">MEMBER</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-success">Save</button>
+
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <a th:href="@{/user/member/}">Member control</a>
+            <a th:href="@{/user/admin/}">Admin control</a>
+            <a th:href="@{/user/manager/}">Manager control</a>
+        </div>
+    </main>
+
+    <aside>
+        <nav>
+            <div class="input">
+                <div>
+                    <i class="fas fa-search"></i>
+                </div>
+
+                <input type="text" placeholder="Search">
+            </div>
+
+            <div class="user-information">
+                <div class="icon">
+                    <a th:href="@{/auth/logout}" class="btn btn-outline-danger">logout</a>
+                </div>
+
+                <div class="user">
+                    <img src="/images/useer.png" alt="">
+                    <p>Mushkityorlar
+                        <i class="fas fa-angle-down"></i>
+                    </p>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <h3>Project name</h3>
+
+            <div class="contents">
+                <div class="content">
+                    <div class="box">
+                        <p><b>Date added:</b> <span> 12/04/2021</span></p>
+                        <p><b>Deadline:</b><span>12/04/2021 </span></p>
+                        <p><b>Participants:</b><span>12/04/2021 </span></p>
+                    </div>
+                    <div class="content-box">
+                        <p>Менеджер для внутреннего пользования, предназначенный для учета статистики и трекинга задач.
+                        </p>
+                    </div>
+                    <div class="boxs">
+                        <p><b>All tasks:</b> 1</p>
+                        <p><b>Done:</b> 1</p>
+                        <p><b>Frozen:</b> 1</p>
+                    </div>
+                </div>
+
+                <div class="todoContainer">
+                    <div class="todoContent-box">
+                        <div class="todo-img">
+                            <p>To do</p>
+                            <img src="./assets/imges/plus-circle.png" alt="">
+                        </div>
+                        <div class="todo-box">
+                            <h4>CRM system design
+                                <button class="medium">Medium</button>
+                            </h4>
+                            <p><span>Participant:  </span>Azhar</p>
+                            <p><span>Participant:  </span>Azhar</p>
+                        </div>
+
+                        <div class="todo-box">
+                            <h4>CRM system design
+                                <button class="low">Low</button>
+                            </h4>
+                            <p><span>Participant:  </span>Azhar</p>
+                            <p><span>Participant:  </span>Azhar</p>
+                        </div>
+
+                        <div class="todo-box">
+                            <h4>CRM system design
+                                <button class="high">High</button>
+                            </h4>
+                            <p><span>Participant:  </span>Azhar</p>
+                            <p><span>Participant:  </span>Azhar</p>
+                        </div>
+                    </div>
+                    <div class="todoContent-box">
+                        <div class="todo-img">
+                            <p>To do</p>
+                        </div>
+                        <div class="todo-box">
+                            <h4>CRM system design
+                                <button class="low">Low</button>
+                            </h4>
+                            <p><span>Participant:  </span>Azhar</p>
+                            <p><span>Participant:  </span>Azhar</p>
+                        </div>
+
+                        <div class="todo-box">
+                            <h4>CRM system design
+                                <button class="low">Low</button>
+                            </h4>
+                            <p><span>Participant:  </span>Azhar</p>
+                            <p><span>Participant:  </span>Azhar</p>
+                        </div>
+                    </div>
+                    <div class="todoContent-box">
+                        <div class="todo-img">
+                            <p>To do</p>
+                        </div>
+                    </div>
+                    <div class="todoContent-box">
+                        <div class="todo-img">
+                            <p>To do</p>
+                        </div>
+                        <div class="todo-box">
+                            <h4>CRM system design
+                                <button class="low">Low</button>
+                            </h4>
+                            <p><span>Participant:  </span>Azhar</p>
+                            <p><span>Participant:  </span>Azhar</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+       &lt;!&ndash; <div class="container">
+            <button type="button" class="btn btn-success my-3" data-toggle="modal"
+                    data-target="#createProjectModal">
+                <i class="fa fa-plus"></i> + Create Project
+            </button>
+            <div class="modal fade" id="createProjectModal" tabindex="-1" role="dialog"
+                 aria-labelledby="createProjectModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="createProjectModalLabel">Create Project</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true" class="text-danger">&times;</span>
+                            </button>
+                        </div>
+                        <form th:action="@{/project/create/}" th:method="post" enctype="multipart/form-data">
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="name">Name</label>
+                                    <input type="text" class="form-control" id="name" name="name"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="tzPath">Project TZ</label>
+                                    <input type="file" class="form-control" name="tzPath" id="tzPath"/>
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-success">Save</button>
+
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="content" style="grid-template-columns: 750px 300px;">
+                <div class="contents">
+                    <div class="content-text" style="margin-bottom: 20px">
+                        <p>Projects</p>
+                        <p>Export</p>
+                    </div>
+                    <div th:each="project : ${projects}">
+                        <a th:href="@{/project/detail/{id}/(id = ${project.id})}"
+                           style="text-decoration: none">
+                            <div class="box">
+                                <p th:text="${project.name}"></p>
+                                <div class="box-text">
+                                    </span>
+                                    <span>
+                                        <img th:src="@{/images/sunrise.png}" alt="">
+                                        <span th:text="${project.tzPath}"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="content-box">
+                    <div class="content-text">
+                        <p>Tasks</p>
+                    </div>
+                    <div class="box">
+                        <div class="box-text">
+                            <p>ОсОО “Energi.kg”</p>
+                            <span>
+                                        <img src="./assets/imges/sunrise.png" alt="">12/04/2021
+                                    </span>
+                        </div>
+                    </div>
+
+                    <div class="box">
+                        <div class="box-text">
+                            <p>ОсОО “Energi.kg”</p>
+                            <span>
+                                        <img src="./assets/imges/sunrise.png" alt="">12/04/2021
+                                    </span>
+                        </div>
+                    </div>
+
+                    <div class="box">
+                        <div class="box-text">
+                            <p>ОсОО “Energi.kg”</p>
+                            <span>
+                                        <img src="./assets/imges/sunrise.png" alt="">12/04/2021
+                                    </span>
+                        </div>
+                    </div>
+
+                    <div class="box">
+                        <div class="box-text">
+                            <p>ОсОО “Energi.kg”</p>
+                            <span>
+                                        <img src="./assets/imges/sunrise.png" alt="">12/04/2021
+                                    </span>
+                        </div>
+                    </div>
+
+                    <div class="box">
+                        <div class="box-text">
+                            <p>ОсОО “Energi.kg”</p>
+                            <span>
+                                        <img src="./assets/imges/sunrise.png" alt="">12/04/2021
+                                    </span>
+                        </div>
+                    </div>
+
+                    <div class="box">
+                        <div class="box-text">
+                            <p>ОсОО “Energi.kg”</p>
+                            <span>
+                                        <img src="./assets/imges/sunrise.png" alt="">12/04/2021
+                                    </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>&ndash;&gt;
+    </aside>
+</header>
+
+<script>
+    const menu = document.querySelector(".menu-bar")
+    const main = document.querySelector("main")
+    menu.addEventListener("click", () => {
+        main.classList.toggle("open")
+    })
+</script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+</html>
+-->
+
+
+<!--<div class="container" style="overflow:hidden;">
+        <h2 th:text="${project.name}" class="text-primary"></h2>
+        <div class="row">
+            <div class="col-4">
+                <div class="card border-primary mb-3" style="max-width: 18rem;">
+                    <div class="card-header">Project TZ</div>
+                    <div class="card-body text-primary">
+                        <img th:src="@{${project.tzPath}}" alt="" class="card-img">
+                    </div>
+                </div>
+            </div>
+            <div class="col-8">
+                <ul class="list-group">
+                    <li class="list-group-item active" th:text="${project.name}"></li>
+                </ul>
+                <a th:href="@{/project/delete/{id}/(id=${project.id})}"
+                   class="btn btn-outline-danger">Delete</a>
+                <a th:href="@{/project/update/{id}/(id=${project.id})}"
+                   class="btn btn-outline-primary">Update</a>
+   &lt;!&ndash;             <a th:href="@{/project/create/{id}/(id=${project.id})}"
+                   class="btn btn-outline-success ml-5">Add Member</a>&ndash;&gt;
+
+                <button type="button" class="btn btn-success my-3" data-toggle="modal"
+                        data-target="#createSuperAdminModal">+ Add Member
+                </button>
+                <div class="modal fade" id="createSuperAdminModal" tabindex="-1" role="dialog"
+                     aria-labelledby="createSuperAdminModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="createSuperAdminModalLabel">Create Super Admin</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true" class="text-danger">&times;</span>
+                                </button>
+                            </div>
+                            <form th:action="@{/superadmin/create/}" th:method="post"
+                                  enctype="multipart/form-data">
+
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label for="name">User Name</label>
+                                        <input type="text" class="form-control" id="name" name="username"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="password">Password</label>
+                                        <input type="password" class="form-control" id="password" name="password"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="logo">profile image</label>
+                                        <input type="file" class="form-control" id="logo" name="profileImage"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="phone">Phone</label>
+                                        <input type="text" class="form-control" id="phone" name="phone"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">Email address</label>
+                                        <input type="email" class="form-control" name="email" id="email"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="language">Language</label>
+                                        <select id="language" name="language" class="form-control">
+                                            <option>UZ</option>
+                                            <option>RU</option>
+                                            <option>EN</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="role">ROLE</label>
+                                        <select id="role" name="role" class="form-control">
+                                            &lt;!&ndash;                                <option name="role_name" value="SUPER_ADMIN">SUPER_ADMIN</option>&ndash;&gt;
+                                            <option name="role_name" value="MEMBER">MEMBER</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-success">Save</button>
+
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+
+                <a th:href="@{/project/projects/}" class="btn btn-warning my-4 p-2"><= Back</a>
+            </div>
+        </div>
+    </div>-->
+
+<!--
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index html one</title>
+    <link rel="stylesheet" href="./assets/css/index2.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;600;700&family=Red+Hat+Display&family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<header>
+    <main>
+        <div class="menu-bar">
+            <i class="fas fa-bars"></i>
+        </div>
+        <div class="logo">
+            <img src="./assets/imges/logo.png" alt="">
+        </div>
+
+        <div class="link">
+            <a href="#"> &#45;&#45; Clients
+            </a>
+            <a href="#">Task manager</a>
+            <a href="#">Inbox</a>
+            <a href="#">Contacts</a>
+        </div>
+    </main>
+
+    <aside>
+        <nav>
+            <div class="input">
+                <div>
+                    <i class="fas fa-search"></i>
+                </div>
+
+                <input type="text" placeholder="Search">
+            </div>
+
+            <div class="user-information">
+                <div class="icon">
+                    <img src="./assets/imges/bell.png" alt="">
+                    <i class="far fa-envelope"></i>
+                </div>
+
+                <div class="user">
+                    <img src="./assets/imges/useer.png" alt="">
+                    <p>Azhar I.
+                        <i class="fas fa-angle-down"></i>
+                    </p>
+                </div>
+
+            </div>
+
+        </nav>
+
+        <div class="container">
+            <h3>Project name</h3>
+
+            <div class="contents">
+                <div class="content">
+                    <div class="box">
+                        <p><b>Date added:</b> <span> 12/04/2021</span></p>
+                        <p><b>Deadline:</b><span>12/04/2021 </span></p>
+                        <p><b>Participants:</b><span>12/04/2021 </span></p>
+                    </div>
+                    <div class="content-box">
+                        <p>Менеджер для внутреннего пользования, предназначенный для учета статистики и трекинга задач.
+                        </p>
+                    </div>
+                    <div class="boxs">
+                        <p><b>All tasks:</b> 1</p>
+                        <p><b>Done:</b> 1</p>
+                        <p><b>Frozen:</b> 1</p>
+                    </div>
+                </div>
+
+                <div class="todoContainer">
+                    <div class="todoContent-box">
+                        <div class="todo-img">
+                            <p>To do</p>
+                            <img src="./assets/imges/plus-circle.png" alt="">
+                        </div>
+                        <div class="todo-box">
+                            <h4>CRM system design
+                                <button class="medium">Medium</button>
+                            </h4>
+                            <p><span>Participant:  </span>Azhar</p>
+                            <p><span>Participant:  </span>Azhar</p>
+                        </div>
+
+                        <div class="todo-box">
+                            <h4>CRM system design
+                                <button class="low">Low</button>
+                            </h4>
+                            <p><span>Participant:  </span>Azhar</p>
+                            <p><span>Participant:  </span>Azhar</p>
+                        </div>
+
+                        <div class="todo-box">
+                            <h4>CRM system design
+                                <button class="high">High</button>
+                            </h4>
+                            <p><span>Participant:  </span>Azhar</p>
+                            <p><span>Participant:  </span>Azhar</p>
+                        </div>
+                    </div>
+                    <div class="todoContent-box">
+                        <div class="todo-img">
+                            <p>To do</p>
+                        </div>
+                        <div class="todo-box">
+                            <h4>CRM system design
+                                <button class="low">Low</button>
+                            </h4>
+                            <p><span>Participant:  </span>Azhar</p>
+                            <p><span>Participant:  </span>Azhar</p>
+                        </div>
+
+                        <div class="todo-box">
+                            <h4>CRM system design
+                                <button class="low">Low</button>
+                            </h4>
+                            <p><span>Participant:  </span>Azhar</p>
+                            <p><span>Participant:  </span>Azhar</p>
+                        </div>
+                    </div>
+                    <div class="todoContent-box">
+                        <div class="todo-img">
+                            <p>To do</p>
+                        </div>
+                    </div>
+                    <div class="todoContent-box">
+                        <div class="todo-img">
+                            <p>To do</p>
+                        </div>
+                        <div class="todo-box">
+                            <h4>CRM system design
+                                <button class="low">Low</button>
+                            </h4>
+                            <p><span>Participant:  </span>Azhar</p>
+                            <p><span>Participant:  </span>Azhar</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+</header>
+
+<script>
+    const menu = document.querySelector(".menu-bar")
+    const main = document.querySelector("main")
+    menu.addEventListener("click", () => {
+        main.classList.toggle("open")
+    })
+</script>
+</body>
+</html>
+-->

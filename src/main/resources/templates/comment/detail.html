@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments.html :: header('Project Details Page')">
+</head>
+<body>
+<header>
+    <section th:include="fragments.html :: navbar"></section>
+</header>
+<main>
+    <div class="container">
+        <div class="row">
+            <div class="col-6 offset-3">
+                <p class="h4" th:text="${comment.task}"></p>
+                <p class="h4" th:text="${comment.message}"></p>
+                <form method="get" th:action="@{/comment/list}">
+                    <button type="submit" class="btn btn-warning">Back</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+<footer>
+    <section th:include="fragments.html :: js"></section>
+</footer>
+</body>
+</html>

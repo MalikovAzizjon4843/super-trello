@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments.html :: header('Projects')">
+</head>
+<body>
+<header>
+    <section th:include="fragments.html :: navbar"></section>
+</header>
+<main>
+    <div class="container">
+        <table class="table">
+            <thead class="thead-light">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Tz Path</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="comment,iter :  ${comments}">
+                <th th:text="${iter.count}"></th>
+                <th th:text="${comment.message}"></th>
+                <th class="icons">
+                    <a th:href="@{/comment/detail/{id}/(id = ${comment.id})}">👁</a>
+                    <a th:href="@{/comment/delete/{id}/(id=${comment.id})}">🗑</a>
+                    <a th:href="@{/comment/update/{id}/(id=${comment.id})}">🔄</a>
+
+                </th>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+<footer>
+    <section th:include="fragments.html :: js"></section>
+</footer>
+</body>
+</html>

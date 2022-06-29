@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments.html :: head(title='Project list', path='/css/index.css')"></head>
+<body>
+<header>
+    <main>
+        <div class="menu-bar">
+            <i class="fas fa-bars"></i>
+        </div>
+        <div class="logo" style=" margin-right: 20px;
+        margin-left: -60px;
+        margin-top: -100px;">
+            <img src="/images/logo.png" alt="" style="width: 100%">
+        </div>
+
+        <div class="link">
+            <a th:href="@{/panel/admin/}">Project</a>
+            <a th:href="@{/user/member/}">Member control</a>
+            <a th:href="@{/user/admin/}">Admin control</a>
+            <a th:href="@{/user/manager/}">Manager control</a>
+        </div>
+    </main>
+
+    <aside>
+        <nav>
+            <div class="input">
+                <div>
+                    <i class="fas fa-search"></i>
+                </div>
+
+                <input type="text" placeholder="Search">
+            </div>
+
+            <div class="user-information">
+                <div class="icon">
+                    <a th:href="@{/auth/logout}" class="btn btn-outline-danger">logout</a>
+                </div>
+
+                <div class="user">
+                    <img src="/images/useer.png" alt="">
+                    <p>Mushkityorlar
+                        <i class="fas fa-angle-down"></i>
+                    </p>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <button type="button" class="btn btn-success my-3" data-toggle="modal"
+                    data-target="#createProjectModal">
+                <i class="fa fa-plus"></i> + Create Project
+            </button>
+            <div class="modal fade" id="createProjectModal" tabindex="-1" role="dialog"
+                 aria-labelledby="createProjectModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="createProjectModalLabel">Create Project</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true" class="text-danger">&times;</span>
+                            </button>
+                        </div>
+                        <form th:action="@{/project/create/}" th:method="post" enctype="multipart/form-data">
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="name">Name</label>
+                                    <input type="text" class="form-control" id="name" name="name"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="tzPath">Project TZ</label>
+                                    <input type="file" class="form-control" name="tzPath" id="tzPath"/>
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-success">Save</button>
+
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="content" style="grid-template-columns: 750px 300px;">
+                <div class="contents">
+                    <div class="content-text" style="margin-bottom: 20px">
+                        <p>Projects</p>
+                        <p>Export</p>
+                    </div>
+                    <div th:each="project : ${projects}">
+                        <a th:href="@{/project/detail/{id}/(id = ${project.id})}"
+                           style="text-decoration: none">
+                            <div class="box">
+                                <p th:text="${project.name}"></p>
+                                <div class="box-text">
+                                    </span>
+                                    <span>
+                                        <img th:src="@{/images/sunrise.png}" alt="">
+                                        <span th:text="${project.tzPath}"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="content-box">
+                    <div class="content-text">
+                        <p>Tasks</p>
+                    </div>
+                    <div class="box">
+                        <div class="box-text">
+                            <p>ОсОО “Energi.kg”</p>
+                            <span>
+                                        <img src="./assets/imges/sunrise.png" alt="">12/04/2021
+                                    </span>
+                        </div>
+                    </div>
+
+                    <div class="box">
+                        <div class="box-text">
+                            <p>ОсОО “Energi.kg”</p>
+                            <span>
+                                        <img src="./assets/imges/sunrise.png" alt="">12/04/2021
+                                    </span>
+                        </div>
+                    </div>
+
+                    <div class="box">
+                        <div class="box-text">
+                            <p>ОсОО “Energi.kg”</p>
+                            <span>
+                                        <img src="./assets/imges/sunrise.png" alt="">12/04/2021
+                                    </span>
+                        </div>
+                    </div>
+
+                    <div class="box">
+                        <div class="box-text">
+                            <p>ОсОО “Energi.kg”</p>
+                            <span>
+                                        <img src="./assets/imges/sunrise.png" alt="">12/04/2021
+                                    </span>
+                        </div>
+                    </div>
+
+                    <div class="box">
+                        <div class="box-text">
+                            <p>ОсОО “Energi.kg”</p>
+                            <span>
+                                        <img src="./assets/imges/sunrise.png" alt="">12/04/2021
+                                    </span>
+                        </div>
+                    </div>
+
+                    <div class="box">
+                        <div class="box-text">
+                            <p>ОсОО “Energi.kg”</p>
+                            <span>
+                                        <img src="./assets/imges/sunrise.png" alt="">12/04/2021
+                                    </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </aside>
+</header>
+
+<script>
+    const menu = document.querySelector(".menu-bar")
+    const main = document.querySelector("main")
+    menu.addEventListener("click", () => {
+        main.classList.toggle("open")
+    })
+</script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+</html>

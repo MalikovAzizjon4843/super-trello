@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments.html :: head(title='Admion deteils', path='/css/index.css')"></head>
+<main>
+    <div class="container" style="overflow: hidden">
+        <h2 th:text="${admin.username}" class="text-primary"></h2>
+        <div class="row">
+            <div class="col-4">
+                <div class="card border-primary mb-3" style="max-width: 18rem;">
+                    <div class="card-header">Admin Profil Image</div>
+                    <div class="card-body text-primary">
+                        <img th:src="@{${admin.profileImage}}" alt="" class="card-img">
+                    </div>
+                </div>
+            </div>
+            <div class="col-8">
+                <ul class="list-group">
+                    <li class="list-group-item active" th:text="${admin.username}"></li>
+                    <li class="list-group-item" th:text="${admin.language}"></li>
+                    <li class="list-group-item" th:text="${admin.email}"></li>
+                </ul>
+                <a th:href="@{/admin/delete/{id}/(id=${admin.id})}"
+                   class="btn btn-outline-danger">Delete</a>
+                <a th:href="@{/admin/update/{id}/(id=${admin.id})}"
+                   class="btn btn-outline-primary">Update</a>
+
+                <a th:href="@{/user/admin/}" class="btn btn-warning my-4 p-2 text-white"><= Back</a>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>
